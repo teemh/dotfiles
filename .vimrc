@@ -29,13 +29,9 @@ if &tabpagemax < 50
 endif
 
 " Decrease delay after hitting ESC before going into normal mode.
-if !has('nvim') && &ttimeoutlen == -1
-  set timeout
-  set timeoutlen=1000 
-else 
-  set ttimeout
-  set ttimeoutlen=100
-endif
+set timeout
+set timeoutlen=1000 
+set ttimeoutlen=50
 
 " Source vim configuration file whenever it is saved
 if has('autocmd')          " Remain compatible with earlier versions
@@ -86,9 +82,11 @@ set title           "title auto changes based on file
 set report=0        "always tell me the number of lines changed by a command
 set cmdheight=1     "command area height
 set showcmd         "show commands
-set cursorline      "show cursor line
 set number          "show number line
 set numberwidth=7   "left padding on number line
+
+autocmd! InsertEnter * set cul
+autocmd! InsertLeave * set nocul
 
 " When to auto scroll depending on where cursor is.
 if !&scrolloff

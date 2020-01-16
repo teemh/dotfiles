@@ -72,8 +72,15 @@ if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
   set t_Co=16
 endif
 
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif
+
 set background=dark
-colorscheme slate
+colorscheme dragon
 
 set laststatus=2    "always show status bar
 set ruler           "show line and column number of cursor
@@ -90,7 +97,7 @@ autocmd! InsertLeave * set nocul
 
 " When to auto scroll depending on where cursor is.
 if !&scrolloff
-  set scrolloff=1
+  set scrolloff=10
 endif
 if !&sidescrolloff
   set sidescrolloff=5
@@ -468,20 +475,20 @@ vnoremap <BS> "_d
 
 " Make x and X act like d and D. Use backspace instead of X. Use x instead
 " d for cutting.
-"noremap  x d
-"vnoremap x d
-"noremap  X D
-"vnoremap X D
-"
-"" When using dD and cC don't copy to clipboard. Makes pasting much better.
-"nnoremap d "_d
-"vnoremap d "_d
-"nnoremap D "_D
-"vnoremap D "_D
-"nnoremap c "_c
-"vnoremap c "_c
-"nnoremap C "_C
-"vnoremap C "_C
+noremap  x d
+vnoremap x d
+noremap  X D
+vnoremap X D
+
+" When using dD and cC don't copy to clipboard. Makes pasting much better.
+nnoremap d "_d
+vnoremap d "_d
+nnoremap D "_D
+vnoremap D "_D
+nnoremap c "_c
+vnoremap c "_c
+nnoremap C "_C
+vnoremap C "_C
 
 " Arrow Keys
 "------------------------------------------------------------------------------
@@ -496,8 +503,8 @@ noremap  <C-Up>      {
 
 " Move around (Smaller Movements)
 noremap  <S-Down>    )
-noremap  <S-Left>    gE
-noremap  <S-Right>   E
+noremap  <S-Left>    B
+noremap  <S-Right>   W
 noremap  <S-Up>      (
 
 " Buffer Movement
